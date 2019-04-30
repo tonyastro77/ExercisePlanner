@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Exercise plan</title>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" >
+</head>
+<body>
+	<div class="container">
+	<h1>Add a new exercise</h1>
+		<form th:object="${exerciseObj}" th:action="@{save}" action="#" method="post">
+			<div class="form-row">
+				<div class="form-group col-7">
+					<label for="day">Day:</label>
+					<select id="day" th:field="*{day}" class="form-control">
+		       			<option th:each="i : ${#numbers.sequence(1, 30)}" th:value="${i}" th:text="${i}"></option>
+					</select>
+					
+					<label for="type">Type:</label>
+					<select id="type" th:field="*{type}" class="form-control">
+		       			<option th:each="type: ${types}" th:value="${type.typeid}" th:text="${type.type}"></option>
+					</select>
+
+					<label for="name">Exercise:</label>
+					<select id="name" th:field="*{name}" class="form-control">
+		       			<option th:each="type: ${types}" th:value="${type.typeid}" th:text="${type.name}"></option>
+					</select>
+						
+					<label for="sets">Sets:</label>
+					<select id="sets" th:field="*{sets}" class="form-control">
+		       			<option th:each="i : ${#numbers.sequence(1, 20)}" th:value="${i}" th:text="${i}"></option>
+					</select>
+					
+					<label for="reps">Repetitions:</label>
+					<input type="text" id="reps" th:field="*{reps}"  class="form-control" value="10 Minutes" placeholder="Type the number of reps or time.  Ex: 10-12 , 15 mins"/>
+				
+					<div style="clear: both; display: block; height: 10px;">
+						<input type="submit" value="Save" class="btn btn-primary"/>
+					</div>
+										
+			</div>
+			
+		</form>
+		
+	</div>
+</body>
+</html>

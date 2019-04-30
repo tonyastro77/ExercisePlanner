@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Exercise plan</title>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" >
+</head>
+<body>
+<div class="container">
+	<div>
+	<h1>Exercise plan</h1>
+	</div>
+	
+	<table class="table table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Day</th>
+				<th>Type</th>
+				<th>Name</th>
+				<th>Equipment</th>
+				<th>Sets</th>
+				<th>Reps</th>
+				<th>Rating</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${exercises.empty}">
+				<td colspan="8">No exercises have been stored yet.</td>
+			</tr>
+			<tr th:each="exercise : ${exercises}">
+				<td th:text="${exercise.day}"></td>
+				<td th:text="${exercise.type.type}"></td>
+				<td th:text="${exercise.name}"></td>
+				<td th:text="${exercise.type.equipment}"></td>
+				<td th:text="${exercise.sets}"></td>
+				<td th:text="${exercise.reps}"></td>
+				<td th:text="${exercise.type.rating}"></td>
+				<td><a th:href="@{/delete/{id} (id=${exercise.id})}" class="btn btn-danger">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="/add" class="btn btn-primary">Add</a>
+</div>
+</body>
+</html>
