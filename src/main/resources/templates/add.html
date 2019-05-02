@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Exercise plan</title>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
@@ -16,15 +16,14 @@
 		       			<option th:each="i : ${#numbers.sequence(1, 30)}" th:value="${i}" th:text="${i}"></option>
 					</select>
 					
-					<label for="type">Type:</label>
-					<select id="type" th:field="*{type}" class="form-control">
-		       			<option th:each="type: ${types}" th:value="${type.typeid}" th:text="${type.type}"></option>
+					<label for="type">Category:</label>
+					<select id="type" th:field="*{type}" class="form-control" required>
+						<option value="">--Select category--</option>
+						<option th:each="type : ${types}" th:value="${type.typeid}" th:text="${type.name}"></option>
 					</select>
-
-					<label for="name">Exercise:</label>
-					<select id="name" th:field="*{name}" class="form-control">
-		       			<option th:each="type: ${types}" th:value="${type.typeid}" th:text="${type.name}"></option>
-					</select>
+					
+					<label for="name">Name:</label>
+					<input type="text" id="name" th:field="*{name}"  class="form-control" value="name" placeholder="Insert exercise name" required/>
 						
 					<label for="sets">Sets:</label>
 					<select id="sets" th:field="*{sets}" class="form-control">
@@ -32,16 +31,24 @@
 					</select>
 					
 					<label for="reps">Repetitions:</label>
-					<input type="text" id="reps" th:field="*{reps}"  class="form-control" value="10 Minutes" placeholder="Type the number of reps or time.  Ex: 10-12 , 15 mins"/>
-				
+					<input type="text" id="reps" th:field="*{reps}"  class="form-control" value="10 Minutes" placeholder="Insert the number of reps or time.  Ex: 10-12 , 15 mins" required/>
+					
+					<label for="weight">Weight (kgs):</label>
+					<select id="weight" th:field="*{weight}" class="form-control">
+						<option value="">--</option>
+		       			<option th:each="i : ${#numbers.sequence(1, 80)}" th:value="${i*2}" th:text="${i*2}"></option>
+					</select>
+			
 					<div style="clear: both; display: block; height: 10px;">
 						<input type="submit" value="Save" class="btn btn-primary"/>
 					</div>
 										
+				</div>
 			</div>
 			
 		</form>
 		
 	</div>
+	
 </body>
 </html>

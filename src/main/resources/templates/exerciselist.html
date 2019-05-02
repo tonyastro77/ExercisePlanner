@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html 	xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:th="http://www.thymeleaf.org" 
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Exercise plan</title>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
@@ -7,8 +9,18 @@
 </head>
 <body>
 <div class="container">
-	<div>
-	<h1>Exercise plan</h1>
+
+	<div class="col-md-4">
+		<p th:inline="text">You are logged in as [[${#httpServletRequest.remoteUser}]]</p>
+	</div>
+	<div class="col-md-4">
+		<h1>Exercise plan</h1>
+	</div>
+	
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
 	</div>
 	
 	<table class="table table-striped">
@@ -17,11 +29,10 @@
 				<th>Day</th>
 				<th>Type</th>
 				<th>Name</th>
-				<th>Equipment</th>
 				<th>Sets</th>
-				<th>Reps</th>
-				<th>Rating</th>
-				<th></th>
+				<th>Reps/time(mins)</th>
+				<th>Weight(kg)</th>
+				<th sec:authorize="hasAuthority('ADMIN')"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,13 +41,12 @@
 			</tr>
 			<tr th:each="exercise : ${exercises}">
 				<td th:text="${exercise.day}"></td>
-				<td th:text="${exercise.type.type}"></td>
+				<td th:text="${exercise.type.name}"></td>
 				<td th:text="${exercise.name}"></td>
-				<td th:text="${exercise.type.equipment}"></td>
 				<td th:text="${exercise.sets}"></td>
 				<td th:text="${exercise.reps}"></td>
-				<td th:text="${exercise.type.rating}"></td>
-				<td><a th:href="@{/delete/{id} (id=${exercise.id})}" class="btn btn-danger">Delete</a></td>
+				<td th:text="${exercise.weight}"></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id} (id=${exercise.id})}" class="btn btn-danger">Delete</a></td>
 			</tr>
 		</tbody>
 	</table>

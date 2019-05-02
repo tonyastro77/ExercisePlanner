@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +25,14 @@ public class ExerciseController {
 	@Autowired
 	private TypeRepository trepository;
 	
+	// Login page
+    @RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    } 
 
-	//Finding all the columns
-	@RequestMapping("/exerciselist")
+	//Main page
+	@RequestMapping(value="/exerciselist")
 	public String exerciseList(Model model) {
 		model.addAttribute("exercises", repository.findAll());
 		return "exerciselist";
@@ -60,6 +66,7 @@ public class ExerciseController {
 	}
 	
 	//Delete one exercise
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/delete/{id}", method= RequestMethod.GET)
 	public String deleteRow(@PathVariable("id") Long idRow){
 	repository.deleteById(idRow);
